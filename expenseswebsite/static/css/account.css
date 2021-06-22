@@ -1,0 +1,31 @@
+.user-tags {
+    list-style-type: none;
+    text-align: right;
+}
+
+.user-details {
+    list-style-type: none;
+}
+
+.info{ 
+    display: flex;
+    
+}
+
+.details { 
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-details-form {
+    display: none;
+    padding-top: 30px;
+}
+
+.edit {
+    cursor: pointer;
+}
+
+.reset-password-tab {
+    padding: 10px;
+}

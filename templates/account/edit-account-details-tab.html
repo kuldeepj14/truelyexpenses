@@ -1,0 +1,91 @@
+{% extends 'account/index.html' %}
+
+{% load static %}
+
+{% block account_page_tabs %}
+
+<div class="account-details">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active " aria-current="page" href="{% url 'account' %}">Profile Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account-password-reset' %}">Change Password</a>
+            </li>
+            {% comment %} <li class="nav-item">
+                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> {% endcomment %}
+        </ul>
+    </div>
+    <div class="details-tab">
+        <div class="details">
+            <div class="info">
+                <ul class="user-tags">
+                    <li>Name</li>
+                    <li>Email</li>
+                    <li>Phone Number</li>
+                    <li>Date of Birth</li>
+                </ul>
+                <ul class="user-details">
+                    <li>{% if current_user.first_name == ""%}
+                        -
+                    {% else %}
+                    {{current_user.first_name}} {{current_user.last_name}}
+                    {% endif %}</li>
+                    <li>{% if current_user.email == ""%}
+                        -
+                    {% else %}
+                    {{current_user.email}} 
+                    {% endif %}</li>
+                    <li>{% if account_details.phone_number == ""%}
+                        -
+                    {% else %}
+                    {{account_details.phone_number}} 
+                    {% endif %}</li>
+                    <li>{% if account_details.birth_date == ""%}
+                        -
+                    {% else %}
+                    {{account_details.birth_date}} 
+                    {% endif %}</li>
+                </ul>
+            </div>
+            <div class="edit">Edit profile</div>
+        </div>
+         <div class="edit-details-form">
+            <form action="{% url 'account' %}" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="inputFirstname" class="form-label">First Name</label>
+                        <input type="text" id="inputFirstname" value={{current_user.first_name}} class="form-control" name="first_name" aria-describedby="passwordHelpBlock" >
+                    </div>
+                    <div class="form-group col-4">
+                        <label for="inputLastname" class="form-label">Last Name</label>
+                        <input type="text" id="inputLastname" value={{current_user.last_name}} name="last_name" class="form-control" aria-describedby="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label for="inputEmail" class="form-label">Email</label>
+                        <input type="text" id="inputEmail" value={{current_user.email}} class="form-control" name="email" aria-describedby="">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-8">
+                        <label for="inputPhonenumber" class="form-label">Phone number</label>
+                        <input type="text" name="phone_number" id="inputPhonenumber"class="form-control" value={{account_details.phone_number}}>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-4">
+                        <label for="inputbirthdate" class="form-label">Date of Birth</label>
+                        <input type="date" name="birth_date" value={{account_details.birth_date | date:'Y-m-d'}} id="inputbirthdate" class="form-control" aria-describedby="">
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Save">
+            </form>
+        </div> 
+    </div>
+
+{% endblock account_page_tabs %}
+
