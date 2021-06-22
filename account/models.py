@@ -7,4 +7,4 @@ from phonenumber_field.modelfields import PhoneNumberField
 class UserAccount(models.Model):
     user = models.OneToOneField(to=User, on_delete=models.CASCADE)
     phone_number = PhoneNumberField(blank=True)
-    birth_date = models.DateField()
+    birth_date = models.DateField(blank=True, null=True)

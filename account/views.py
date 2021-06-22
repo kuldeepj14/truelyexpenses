@@ -12,35 +12,35 @@ from django.contrib import messages
 
 def index(request):
     
+
     current_user = User.objects.get(username=request.user)
-    account_details = UserAccount.objects.get(user=request.user)
-    if request.method == "POST":
-        # import pdb
-        # pdb.set_trace()
-        fisrt_name = request.POST['first_name']
-        last_name = request.POST['last_name']
-        birth_date = request.POST['birth_date']
-        email = request.POST['email']
-        phone_number = request.POST['phone_number']
+    exists = UserAccount.objects.filter(user=request.user).exists()
+    if not exists:
+        UserAccount.objects.create(user =request.user, phone_number='')
+    if exists:
+        account_details = UserAccount.objects.get(user=request.user)
+        if request.method == "POST":
+    
+            fisrt_name = request.POST['first_name']
+            last_name = request.POST['last_name']
+            birth_date = request.POST['birth_date']
+            email = request.POST['email']
+            phone_number = request.POST['phone_number']
+            
+            current_user.first_name = fisrt_name
+            current_user.last_name = last_name
+            current_user.email = email
+            account_details.phone_number = phone_number
+            account_details.birth_date = birth_date
+            current_user.save()
+            account_details.save()
         
-        current_user.first_name = fisrt_name
-        current_user.last_name = last_name
-        current_user.email = email
-        print (fisrt_name, last_name,phone_number)
-        # import pdb
-        # pdb.set_trace()
-        account_details.phone_number = phone_number
-        account_details.birth_date = birth_date
-        # UserAccount.objects.create(user =request.user, phone_number = phone_number, birth_date = birth_date)
-        current_user.save()
-        account_details.save()
-    
-    context = {
-        'current_user' : current_user,
-        'account_details' : account_details
-    }
-    
-    return render(request,'account/edit-account-details-tab.html', context)
+        context = {
+            'current_user' : current_user,
+            'account_details' : account_details
+        }
+        
+        return render(request,'account/edit-account-details-tab.html', context)
 
 
 def password_reset(request):

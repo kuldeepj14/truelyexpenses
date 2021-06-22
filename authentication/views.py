@@ -15,6 +15,7 @@ from django.contrib import auth
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 import threading
 from account.models import UserAccount
+from userpreferences.models import UserPreference
 # Create your views here.
 
 
@@ -87,7 +88,7 @@ class RegistrationView(View):
                 #   - token
 
                 # creatng user details instance
-                UserAccount.objects.create(user=request.user)
+                # UserAccount.objects.create(user=request.user)
                 
                 current_site = get_current_site(request)
                 email_contents = {
@@ -130,13 +131,14 @@ class VerificationView(View):
             id = force_text(urlsafe_base64_decode(uidb64))
             user = User.objects.get(pk=id)
 
-            if not token_generator.check_token(user, token):
-                return redirect('login' + '?message='+'User already activated')
+            # if not token_generator.check_token(user, token):
+            #     return redirect('login' + '?message='+'User already activated')
 
             if user.is_active:
                 return redirect('login')
             user.is_active =True
             user.save()
+            # UserAccount.objects.create(user=user)
 
             messages.success(request, 'Account activated successfully')
             return redirect('login')
@@ -162,7 +164,11 @@ class LoginView(View):
                 if user.is_active:
                     auth.login(request, user)
                     messages.success(request, 'Welcome, '+ user.username+ ' You are now logged in')
-                    return redirect('expenses')
+                    if UserPreference.objects.filter(user=user).exists():
+                        return redirect('expenses')
+                    else:
+                        return redirect('preferences')
+
                 messages.error(request, 'Account is not active, please check your email')
                 return render(request, 'authentication/login.html')
             messages.error(request, 'Invalid credentials, try again')
