@@ -1,0 +1,59 @@
+{% extends 'account/index.html' %}
+
+{% load static %}
+
+{% block account_page_tabs %}
+
+<div class="account-details">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active " aria-current="page" href="{% url 'account' %}">Profile Details</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'account-password-reset' %}">Change Password</a>
+            </li>
+            {% comment %} <li class="nav-item">
+                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> {% endcomment %}
+        </ul>
+    </div>
+    {% include 'partials/_messages.html' %}
+    <div class="details-tab">
+        <div class="details">
+        
+            <div class="info">
+                <ul class="user-tags">
+                    <li>Name</li>
+                    <li>Email</li>
+                    <li>Phone Number</li>
+                    <li>Date of Birth</li>
+                </ul>
+                <ul class="user-details">
+                    <li>{% if current_user.first_name == ""%}
+                        -
+                    {% else %}
+                    {{current_user.first_name}} {{current_user.last_name}}
+                    {% endif %}</li>
+                    <li>{% if current_user.email == ""%}
+                        -
+                    {% else %}
+                    {{current_user.email}} 
+                    {% endif %}</li>
+                    <li>{% if account_details.phone_number == ""%}
+                        -
+                    {% else %}
+                    {{account_details.phone_number}} 
+                    {% endif %}</li>
+                    <li>{% if account_details.birth_date == None%}
+                        -
+                    {% else %}
+                    {{account_details.birth_date}} 
+                    {% endif %}</li>
+                </ul>
+            </div>
+            <a class="nav-link edit" href="{% url 'edit-account-details' %}">Edit details</a>
+        </div> 
+    </div>
+
+{% endblock account_page_tabs %}
+

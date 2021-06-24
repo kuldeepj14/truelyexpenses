@@ -18,41 +18,9 @@
         </ul>
     </div>
     <div class="details-tab">
-        <div class="details">
-            <div class="info">
-                <ul class="user-tags">
-                    <li>Name</li>
-                    <li>Email</li>
-                    <li>Phone Number</li>
-                    <li>Date of Birth</li>
-                </ul>
-                <ul class="user-details">
-                    <li>{% if current_user.first_name == ""%}
-                        -
-                    {% else %}
-                    {{current_user.first_name}} {{current_user.last_name}}
-                    {% endif %}</li>
-                    <li>{% if current_user.email == ""%}
-                        -
-                    {% else %}
-                    {{current_user.email}} 
-                    {% endif %}</li>
-                    <li>{% if account_details.phone_number == ""%}
-                        -
-                    {% else %}
-                    {{account_details.phone_number}} 
-                    {% endif %}</li>
-                    <li>{% if account_details.birth_date == None%}
-                        -
-                    {% else %}
-                    {{account_details.birth_date}} 
-                    {% endif %}</li>
-                </ul>
-            </div>
-            <div class="edit">Edit profile</div>
-        </div>
+        
          <div class="edit-details-form">
-            <form action="{% url 'account' %}" method="post">
+            <form action="{% url 'edit-account-details' %}" method="post">
                 {% csrf_token %}
                 <div class="row">
                     <div class="form-group col-4">
