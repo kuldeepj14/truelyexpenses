@@ -1,3 +1,4 @@
+
 const renderChart = (data, labels) => {
     var ctx = document.getElementById('myChart').getContext('2d');
     var myChart = new Chart(ctx, {
@@ -38,7 +39,6 @@ const renderChart = (data, labels) => {
 
 
 const getChartData = () => {
-    console.log('fetching')
     fetch('expense_category_summary').then(res => res.json()).then(results => {
         console.log('results', results)
         const category_data = results.expense_category_data

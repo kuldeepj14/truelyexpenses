@@ -126,7 +126,7 @@ def expense_category_summary(request):
     todays_date = datetime.date.today()
     six_months_ago = todays_date - datetime.timedelta(days=30*6)
     expenses = Expense.objects.filter(owner=request.user, date__gte=six_months_ago, date__lte=todays_date)
-
+    print(expenses)
     finalrep = {}
 
     def get_category(expense):
@@ -134,7 +134,7 @@ def expense_category_summary(request):
 
     # set will remove any duplicates
     category_list = list(set(map(get_category, expenses)))
-
+    
     def get_expense_category_amount(category):
         amount = 0
 

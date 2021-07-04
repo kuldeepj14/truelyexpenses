@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'userpreferences',
     'expenses',
     'phonenumber_field',
+
 ]
 
 MIDDLEWARE = [

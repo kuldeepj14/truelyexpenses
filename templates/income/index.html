@@ -18,10 +18,12 @@
         </ol>
       </nav>
     </div>
-
+  {% if income.count %}
     <div class="col-md-2">
       <a href="{% url 'add-income'%}" class="btn btn-primary">Add Income</a>
-    </div>
+    </div>  
+  {% endif %}
+
 </div>
  <div class="container">
     {% include 'partials/_messages.html' %} 
@@ -115,7 +117,32 @@
 
 
     </ul>
+    {% else %}
+    <div class="brown">
+      <p>hello</p>
+    </div>
+    <div class="jumbotron">
+      <h1 class="display-5">Hello, {{request.user|capfirst}}</h1>
+      <p class="lead ">Start adding your incomes.</p>
+      <a href="{% url 'add-income'%}" class="btn btn-primary">Add Income</a>
+    </div>
+    
     {% endif %}
+
+
+
+        <button type="button" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-log-out"></span> Log out
+        </button>
+
+
+
+
+
+
+
+
+  </div>
 </div> 
 
 
